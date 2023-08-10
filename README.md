@@ -5,6 +5,7 @@ This is a very very simple Django application that does hourly backups of your p
 fly.io only does daily backups which might not be enough for you. This application can help you out with that.
 
 It supports backing up multiple postgres databases from different fly accounts to s3. It uses the Django admin ui for easy configurations.
+
 ## Usage
 You can deploy this application on fly.io yourself.
 ```bash
@@ -16,7 +17,7 @@ export APP_NAME=<backups>
 ``` 
 Generate the fly.toml file using the template
 ```bash
-envsubst < fly_template.toml >> fly_.toml
+envsubst < fly_template.toml >> fly.toml
 ``` 
 Create the app
 ```bash
@@ -26,10 +27,28 @@ Create a volume for the sqlite database
 ```bash
 fly volumes create db --region ams --size 1
 ```
+Set secret key
+```bash
+fly secrets set SECRET_KEY=$(openssl rand -hex 12)
+```
+Set fly domain
+```bash
+fly secrets set FLY_DOMAIN=$APP_NAME.fly.dev
+```
 Deploy the application to fly
 ```bash
 fly deploy
 ```
+ssh in the machine
+```bash
+fly ssh console
+```
+Create a superuser
+```bash
+python manage.py createsuperuser
+```
+
+You can now go to the <app_name>.fly.dev/admin to make the configurations.
 
 
 ## TODOs
