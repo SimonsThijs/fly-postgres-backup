@@ -76,7 +76,7 @@ Currently, the project only supports the bare minimum of features that i need. I
 - [ ] More advanced scheduling, currently only does hourly backups for all the databases. We want to be able to control the time between backups per database.
 - [ ] Notifications system when backups fail.
 - [ ] Add tests. For this we would have to run a fly postgres database.
-- [ ] Pause the application when Django admin ui is not used and no backups are made. Right now applications is running 24/7.
+- [x] Pause the application when Django admin ui is not used and no backups are made. Right now applications is running 24/7. -> I dont think this is possible with a scheduler running
 - [ ] Add support for more storage providers. Currently only s3 is supported.
 - [ ] Add option to spin up a new Postgres database from a made backup. Can be useful when things need to be restored quickly.
 - [ ] Automatically delete backups after certain period. I currently have this configured within my s3 bucket.
