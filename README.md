@@ -7,7 +7,26 @@ fly.io only does daily backups which might not be enough for you. This applicati
 It supports backing up multiple postgres databases from different fly accounts to s3. It uses the Django admin ui for easy configurations.
 
 ## Usage
+Run the Django application.
+```bash
+python3 manage.py runserver
+```
+
+Configure the databases, fly account and s3 buckets in the Django admin first.
+
+For a single backup, run:
+```bash
+python3 manage.py backup <database_name>
+```
+or to do hourly backups on all your configured databases, run:
+```bash
+python3 manage.py backup_loop
+```
+
+## Deploying
 You can deploy this application on fly.io yourself.
+
+Start by logging in to the fly client
 ```bash
 fly auth login
 ```
@@ -43,12 +62,12 @@ ssh in the machine
 ```bash
 fly ssh console
 ```
-Create a superuser
+And create a new superuser
 ```bash
 python manage.py createsuperuser
 ```
 
-You can now go to the <app_name>.fly.dev/admin to make the configurations.
+You can now go to <app_name>.fly.dev/admin login and make the configurations.
 
 
 ## TODOs

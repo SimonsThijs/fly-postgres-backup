@@ -10,12 +10,12 @@ class Snapshot(models.Model):
     def __str__(self): return f"{self.database} {timezone.localtime(self.created_at).strftime('%Y-%m-%d %H:%M:%S')}"
 
 class PostgresDatabase(models.Model):
-    app_name = models.CharField(max_length=100, unique=True)
-    name = models.CharField(max_length=100)
-    host = models.CharField(max_length=100)
-    port = models.IntegerField()
-    user = models.CharField(max_length=100)
-    password = models.CharField(max_length=100)
+    app_name = models.CharField(max_length=100, unique=True, help_text="The name of the fly app that hosts the database")
+    name = models.CharField(max_length=100, help_text="The name of the postgres database")
+    host = models.CharField(max_length=100, help_text="Should always be 'localhost' because we run a proxy")
+    port = models.IntegerField(help_text="Should always be '5433' because we run a proxy")
+    user = models.CharField(max_length=100, help_text="Postgres username")
+    password = models.CharField(max_length=100, help_text="Postgres password")
 
     bucket = models.ForeignKey('S3Bucket', on_delete=models.CASCADE)
     fly_account = models.ForeignKey('FlyAccount', on_delete=models.CASCADE)

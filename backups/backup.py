@@ -120,17 +120,20 @@ def backup_by_db_name(name: str):
     backup(db)
 
 
+def backup_all():
+    for db in PostgresDatabase.objects.all():
+        time.sleep(3)
+        try:
+            backup(db)
+        except Exception as e:
+            rprint(f"[red]Error backing up {db.name}:\n{e}")
+
+
 def backup_loop():
     """
     Backup all databases in a loop
     """
     while True:
-        for db in PostgresDatabase.objects.all():
-            try:
-                backup(db)
-            except Exception as e:
-                rprint(f"[red]Error backing up {db.name}:\n{e}")
-        
-
+        backup_all()
         # sleep 1 hour
         time.sleep(60 * 60)
